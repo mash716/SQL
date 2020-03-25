@@ -1,0 +1,18 @@
+/*テーブルがあれば削除する*/
+drop procedure if exists register_struts;
+/*テーブル*/
+delimiter //
+create procedure test_procedure1()
+begin 
+declare i int default 0;
+while i<1000 do
+set @sql="insert ignore into register_struts(userid,password,name,adress,age) ";
+set @sql=concat(@sql,"values('テスト', now(), '佐藤', 'aaa@aaa.ne.jp', '24')");
+prepare stmt from @sql;
+execute stmt;
+set i=i+1;
+end while;
+end
+//
+delimiter ;
+call test_procedure1
